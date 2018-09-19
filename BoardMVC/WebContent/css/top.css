@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+h1 {
+	text-align: center;
+}
+ul, li {
+	margin:0;
+	padding:0;
+	height: 50px;
+	list-style: none;
+	background-color: #000;
+	color: #fff;
+	display:flex;
+	align-items: center;
+}
+li {
+padding:10px;
+}
+li:hover {
+	background-color: #ff0000;
+}
+.dropbox {
+	position: relative;
+}
+.dropbox:hover .dropbox_ul {
+	display: block;
+}
+.dropbox_ul {
+	display: none;	
+	min-width: 160px;
+	position: absolute;
+	top: 50px;
+	left: 0;
+	z-index: 1;
+}
+.dropbox_ul li:hover {
+	background-color: #5d5d5d;
+}

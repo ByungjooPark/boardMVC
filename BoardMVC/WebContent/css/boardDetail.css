@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+td {
+	padding: 10px;
+}
+
+th, td {
+	border: 1px solid #000;
+	text-align: center;
+}
+nav {
+	width: 100%;
+	text-align: center;
+}
+.button {
+	width:45%;
+	float: left;
+}

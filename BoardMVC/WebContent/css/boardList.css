@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+th {
+	padding: 10px;
+}
+td {
+	padding: 5px;
+}
+th, td {
+	border: 1px solid #000; 
+	text-align: center;
+}
+
+.container .th1 {
+	width: 5%;
+}
+.container .th2 {
+	width: 65%;
+	
+}
+.container .th3 {
+	width: 15%;
+}
+.container .th4 {
+	width: 15%;
+}
+.container .td2 {
+	text-align: inherit;
+}
