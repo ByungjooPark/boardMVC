@@ -16,11 +16,11 @@ public class BoardDetailAction implements Action {
 		ActionForward forward = new ActionForward();
 		forward.setPath(Var.TEMPLATE_1);
 		
-		int btype = Utils.getBtypeParamInt(request.getParameter("btype"));
+		int btype = Utils.getOneParamInt(request.getParameter("btype"));
 		int bid = Utils.getParamInt(request.getParameter("bid"));
 		
 		BoardListService service = new BoardListService();
-		BoardVO bv = service.getBoardDetail(btype, bid);
+		BoardVO bv = service.getBoardDetail_S(btype, bid);
 		
 		request.setAttribute("title", Var.TITLES[btype]);
 		request.setAttribute("btype", btype);

@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.org.apache.regexp.internal.RE;
+
 import kr.itedu.boardmvc.BoardVO;
 
 public class BoardDAO {
@@ -28,10 +30,14 @@ public class BoardDAO {
 		return dao;
 	}
 
-	public ArrayList<BoardVO> getBoardList(int btype) {
+	public ArrayList<BoardVO> getBoardList(int btype, int page_count) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		
+		final int INDEX_COUNT = 10;
+		int low_count = ((page_count-1) * INDEX_COUNT) + 1;
+		int high_count = page_count * INDEX_COUNT;
 		String str;
 		
 		if(btype == 0) {
@@ -43,11 +49,21 @@ public class BoardDAO {
 		}
 		
 		ArrayList<BoardVO> result = new ArrayList<BoardVO>();
-		String sql = " select bid, btitle, " 
+		/*String sql = " select bid, btitle, " 
 					+ " to_char(bregdate, 'yyyy-mm-dd hh24:mi:ss') as bregdate, "
 					+ " to_char(bmodifydate, 'yyyy-mm-dd hh24:mi:ss') as bmodifydate " 
 					+ " from " + str + "_board " 
-					+ " order by bid desc ";
+					+ " order by bid desc ";*/
+		
+		String sql = " Select * " 
+					+ " from( " 
+					+ "  		select rownum as rnum, z.* " 
+					+ "        from ( " 
+					+ "                select * " 
+					+ "                from " + str + "_board " 
+					+ "                order by bid desc " 
+					+ "            ) z where rownum <= " + high_count 
+					+ ") where rnum >= " + low_count ;
 		
 		try {
 			conn = getConn();
@@ -154,5 +170,115 @@ public class BoardDAO {
 		}	
 		
 		return null;
+	}
+	
+	public void getBoardUpdate(int btype, int bid, String btitle, String bcontent) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String str;
+		
+		if(btype == 0) {
+			str = "notice";
+		} else if(btype == 1) {
+			str = "free";
+		} else {
+			str = "inquiry";
+		}
+		
+		String sql = " update " + str + "_board "
+					+ " set "
+				    + " btitle = ?, bcontent = ?, bmodifydate = sysdate "
+				    + " where bid = ? ";
+		
+		try {
+			conn = getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, btitle);
+			ps.setString(2, bcontent);
+			ps.setInt(3, bid);
+			ps.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} catch(Exception e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} finally {
+			close(conn, ps);
+		}	
+	}
+	
+	public void getBoardDelete(int btype, int bid) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String str;
+		
+		if(btype == 0) {
+			str = "notice";
+		} else if(btype == 1) {
+			str = "free";
+		} else {
+			str = "inquiry";
+		}
+		
+		String sql = " delete from " + str + "_board "
+				+ " where bid = ? ";
+		
+		try {
+			conn = getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, bid);
+			ps.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} catch(Exception e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} finally {
+			close(conn, ps);
+		}	
+	}
+	
+	public int getPageCount(int btype) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int page_count = -1;
+		String str;
+		
+		if(btype == 0) {
+			str = "notice";
+		} else if(btype == 1) {
+			str = "free";
+		} else {
+			str = "inquiry";
+		}
+		
+		String sql = " select ceil(count(bid)/10) as total_count " + 
+				" from " + str + "_board " ;
+		
+		try {
+			conn = getConn();
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				page_count = rs.getInt("total_count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} catch(Exception e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} finally {
+			close(conn, ps);
+		}	
+				
+		return page_count;
 	}
 }

@@ -14,7 +14,7 @@ public class Utils {
 		return r;
 	}
 	
-	public static int getBtypeParamInt(String p) {
+	public static int getOneParamInt(String p) {
 		int r = 1;
 		if(p !=null && !p.equals("")) {
 			try {

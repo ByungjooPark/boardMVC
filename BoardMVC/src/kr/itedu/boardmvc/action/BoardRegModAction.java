@@ -19,7 +19,7 @@ public class BoardRegModAction implements Action {
 		System.out.println(request.getParameter("btype"));
 		System.out.println(request.getParameter("bid"));
 		
-		int btype = Utils.getBtypeParamInt(request.getParameter("btype"));
+		int btype = Utils.getOneParamInt(request.getParameter("btype"));
 		int bid = Utils.getParamInt(request.getParameter("bid"));
 		
 		
@@ -28,7 +28,7 @@ public class BoardRegModAction implements Action {
 			request.setAttribute("bcontent", "");
 		} else {
 			BoardListService service = new BoardListService();
-			BoardVO bv = service.getBoardDetail(btype, bid);
+			BoardVO bv = service.getBoardDetail_S(btype, bid);
 			
 			request.setAttribute("btitle", bv.getBtitle());
 			request.setAttribute("bcontent", bv.getBcontent());

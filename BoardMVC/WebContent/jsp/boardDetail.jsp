@@ -34,7 +34,7 @@ BoardVO bv = (BoardVO)request.getAttribute("data");
 		</table>
 		<nav>
 			<div class="button">
-				<a href="#?btype=${btype }&bid=${bid }"><input type="submit" value="삭제"></a>				
+				<a href="boardDelete.bo?btype=${btype }&bid=${bid }"><input type="submit" value="삭제"></a>				
 			</div>
 			<div class="button">
 				<a href="boardRegMod.bo?btype=${btype }&bid=${bid }"><input type="submit" value="수정"></a>

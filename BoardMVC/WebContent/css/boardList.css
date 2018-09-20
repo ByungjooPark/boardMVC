@@ -27,3 +27,6 @@ th, td {
 .container .td2 {
 	text-align: inherit;
 }
+.page_num {
+	display: flex;
+}

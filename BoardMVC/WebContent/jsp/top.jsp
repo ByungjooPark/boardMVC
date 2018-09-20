@@ -11,7 +11,7 @@ if(content.equals("boardList")){
 }
 %>
 
-<h1><%=title %></h1>
+<h1 id="top"><%=title %></h1>
 
 <ul>
 	<a href="boardList.bo?image=1"><li>이미지</li></a>

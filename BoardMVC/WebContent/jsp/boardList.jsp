@@ -40,7 +40,14 @@ if(result.size() > 0) {
 <%
 }
 %>
-
+<br>
 <a href="boardRegMod.bo?btype=${btype }&bid=0"><input type="button" value="글쓰기"></a>
+<br>
+&nbsp;&nbsp;
+<div class="page_num">
+	<c:forEach var="page_count" begin="1" end="${total_count }" step="1">
+		<a href="boardList.bo?btype=${btype }&page_count=${page_count}">${page_count }&nbsp;&nbsp;</a>
+	</c:forEach>
+</div>
 
 

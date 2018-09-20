@@ -3,5 +3,5 @@
 
 
 <footer>
-<h2>한국IT교육원</h2>
+<a href="#top"><h2>한국IT교육원</h2></a>
 </footer>
