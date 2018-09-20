@@ -18,9 +18,10 @@ public class BoardDeleteAction implements Action {
 		int btype = Utils.getOneParamInt(request.getParameter("btype"));
 		int bid = Utils.getParamInt(request.getParameter("bid"));
 		
+		
 		BoardListService service = new BoardListService();
 		service.getBoardDelete_S(btype, bid);
-
+		
 		request.setAttribute("title", Var.TITLES[btype]);
 		request.setAttribute("content", "boardList");
 		request.setAttribute("btype", btype);

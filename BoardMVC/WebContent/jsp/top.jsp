@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-String content = (String)request.getAttribute("content");
-String title = "";
 
-if(content.equals("boardList")){
-	title = "게시판";
-} else if (content.equals("image")){
-	title = "이미지";
-}
-%>
 
-<h1 id="top"><%=title %></h1>
+<h1 id="top">${title } 게시판</h1>
 
 <ul>
 	<a href="boardList.bo?image=1"><li>이미지</li></a>

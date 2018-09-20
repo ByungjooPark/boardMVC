@@ -16,9 +16,6 @@ public class BoardRegModAction implements Action {
 		ActionForward forward = new ActionForward();
 		forward.setPath(Var.TEMPLATE_1);
 				
-		System.out.println(request.getParameter("btype"));
-		System.out.println(request.getParameter("bid"));
-		
 		int btype = Utils.getOneParamInt(request.getParameter("btype"));
 		int bid = Utils.getParamInt(request.getParameter("bid"));
 		
