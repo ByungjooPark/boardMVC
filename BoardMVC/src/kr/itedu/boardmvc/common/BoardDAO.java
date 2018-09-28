@@ -49,11 +49,6 @@ public class BoardDAO {
 		}
 		
 		ArrayList<BoardVO> result = new ArrayList<BoardVO>();
-		/*String sql = " select bid, btitle, " 
-					+ " to_char(bregdate, 'yyyy-mm-dd hh24:mi:ss') as bregdate, "
-					+ " to_char(bmodifydate, 'yyyy-mm-dd hh24:mi:ss') as bmodifydate " 
-					+ " from " + str + "_board " 
-					+ " order by bid desc ";*/
 		
 		String sql = " Select * " 
 					+ " from( " 
@@ -157,7 +152,7 @@ public class BoardDAO {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, btitle);
 			ps.setString(2, bcontent);
-			ps.executeQuery();
+			ps.executeUpdate();
 						
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -196,7 +191,7 @@ public class BoardDAO {
 			ps.setString(1, btitle);
 			ps.setString(2, bcontent);
 			ps.setInt(3, bid);
-			ps.executeQuery();
+			ps.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -229,7 +224,7 @@ public class BoardDAO {
 			conn = getConn();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, bid);
-			ps.executeQuery();
+			ps.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -246,6 +241,7 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		final int INDEX_COUNT = 10;
 		int page_count = -1;
 		String str;
 		
@@ -257,12 +253,13 @@ public class BoardDAO {
 			str = "inquiry";
 		}
 		
-		String sql = " select ceil(count(bid)/10) as total_count " + 
+		String sql = " select ceil(count(bid)/?) as total_count " + 
 				" from " + str + "_board " ;
 		
 		try {
 			conn = getConn();
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, INDEX_COUNT);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
