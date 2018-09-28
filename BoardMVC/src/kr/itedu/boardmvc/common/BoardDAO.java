@@ -166,7 +166,7 @@ public class BoardDAO {
 		
 		return null;
 	}
-	
+	 
 	public void getBoardUpdate(int btype, int bid, String btitle, String bcontent) {
 		Connection conn = null;
 		PreparedStatement ps = null;

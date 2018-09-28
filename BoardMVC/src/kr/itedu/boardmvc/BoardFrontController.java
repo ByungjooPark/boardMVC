@@ -17,7 +17,7 @@ import kr.itedu.boardmvc.action.BoardModifyAction;
 import kr.itedu.boardmvc.action.BoardRegModAction;
 import kr.itedu.boardmvc.common.Utils;
 import kr.itedu.boardmvc.common.Var;
-
+ 
 @WebServlet("*.bo")
 public class BoardFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
