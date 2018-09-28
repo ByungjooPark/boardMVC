@@ -30,3 +30,13 @@ th, td {
 .page_num {
 	display: flex;
 }
+.page_link{
+	font-weight: bolder;
+}
+span {
+	font-size: 1.5em;
+}
+.page_nolink {
+	color: #5d5d5d;
+	text-decoration: underline;
+}

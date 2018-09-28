@@ -45,8 +45,15 @@ if(result.size() > 0) {
 <br>
 &nbsp;&nbsp;
 <div class="page_num">
-	<c:forEach var="page_count" begin="1" end="${total_count }" step="1">
-		<a href="boardList.bo?btype=${btype }&page_count=${page_count}">${page_count }&nbsp;&nbsp;</a>
+	<c:forEach var="page" begin="1" end="${total_count }" step="1">
+		<c:choose>
+			<c:when test="${page ne page_count }">
+				<a href="boardList.bo?btype=${btype }&page_count=${page}"><span class="page_link">${page }</span></a>&nbsp;&nbsp;
+			</c:when>
+			<c:otherwise>
+				<span class="page_nolink">${page }</span>&nbsp;&nbsp;
+			</c:otherwise>
+		</c:choose>		
 	</c:forEach>
 </div>
 

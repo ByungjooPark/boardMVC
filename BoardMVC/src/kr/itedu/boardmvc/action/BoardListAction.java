@@ -29,6 +29,7 @@ public class BoardListAction implements Action {
 		request.setAttribute("btype", btype);
 		request.setAttribute("data", data);
 		request.setAttribute("total_count", total_count);
+		request.setAttribute("page_count", page_count);
 		
 		return forward;
 	}
