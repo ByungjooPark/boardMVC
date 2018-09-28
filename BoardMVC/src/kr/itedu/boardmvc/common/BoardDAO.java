@@ -47,7 +47,7 @@ public class BoardDAO {
 		} else {
 			str = "inquiry";
 		}
-		
+		 
 		ArrayList<BoardVO> result = new ArrayList<BoardVO>();
 		
 		String sql = " Select * " 
