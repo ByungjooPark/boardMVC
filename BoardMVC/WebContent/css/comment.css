@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.comment_box {
+	padding: 5%;
+	background-color: #D5D5D5;
+}
+table, tr, td {
+	border-style: none;
+}
+td {
+	text-align: left;
+}
+.com_del {
+	text-align: right;
+}
+
+.tr_comment {
+	border-bottom: 1px dashed #5d5d5d;
+}
+
+.textarea_box {	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+textarea {
+	width: 80%;
+}

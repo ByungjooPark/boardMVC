@@ -13,7 +13,6 @@ public class BoardModifyAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
-		forward.setPath(Var.TEMPLATE_2);
 		
 		int btype = Utils.getOneParamInt(request.getParameter("btype"));
 		int bid = Utils.getParamInt(request.getParameter("bid"));
@@ -27,6 +26,9 @@ public class BoardModifyAction implements Action {
 		request.setAttribute("title", Var.TITLES[btype]);
 		request.setAttribute("btype", btype);
 		request.setAttribute("content", "boardList");
+		
+		forward.setRedirect(true);
+		forward.setPath(Var.TEMPLATE_2 + "?btype=" + btype);
 		
 		return forward;
 	}

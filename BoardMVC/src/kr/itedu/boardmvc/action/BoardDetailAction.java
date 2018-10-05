@@ -1,10 +1,13 @@
 package kr.itedu.boardmvc.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.itedu.boardmvc.ActionForward;
 import kr.itedu.boardmvc.BoardVO;
+import kr.itedu.boardmvc.CommentVO;
 import kr.itedu.boardmvc.common.Utils;
 import kr.itedu.boardmvc.common.Var;
 import kr.itedu.boardmvc.service.BoardListService;
@@ -21,12 +24,14 @@ public class BoardDetailAction implements Action {
 		
 		BoardListService service = new BoardListService();
 		BoardVO bv = service.getBoardDetail_S(btype, bid);
+		ArrayList<CommentVO> arr_cv = service.getCommentList_S(btype, bid);
 		
 		request.setAttribute("title", Var.TITLES[btype]);
 		request.setAttribute("btype", btype);
 		request.setAttribute("bid", bid);
 		request.setAttribute("content", "boardDetail");
 		request.setAttribute("data", bv);
+		request.setAttribute("arr_data", arr_cv);
 		
 		return forward;
 	}

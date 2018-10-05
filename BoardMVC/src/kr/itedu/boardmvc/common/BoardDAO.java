@@ -9,9 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 import kr.itedu.boardmvc.BoardVO;
+import kr.itedu.boardmvc.CommentVO;
 
 public class BoardDAO {
 	private static BoardDAO dao;
@@ -277,5 +276,103 @@ public class BoardDAO {
 		}	
 				
 		return page_count;
+	}
+	
+
+	// 코멘트 시작-------------------------------------------
+	
+	public ArrayList<CommentVO> getCommentList(int btype, int bid) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<CommentVO> arr_cv = new ArrayList<CommentVO>();
+		String sql = " select cid, t_comment, cregdate "
+				+ " from t_comment " 
+				+ " where btype = ? and bid = ? "
+				+ " order by cid ";
+
+		try {
+			conn = getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, btype);
+			ps.setInt(2, bid);
+			rs = ps.executeQuery();
+						
+			while(rs.next()) {
+				CommentVO cv = new CommentVO(rs.getInt("cid"), bid, btype, rs.getString("t_comment"), rs.getString("cregdate"));
+				arr_cv.add(cv);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} catch(Exception e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} finally {
+			close(conn, ps, rs);
+		}	
+		
+		
+		return arr_cv;
+	}
+	
+	public void getCommentInsert(int btype, int bid, String c_content) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		String sql = " insert into t_comment(cid, bid, btype, t_comment) " 
+				+ " values((select nvl(max(cid), 0)+1 from t_comment), ?, ?, ?) ";
+		
+		try {
+			conn = getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, bid);
+			ps.setInt(2, btype);
+			ps.setString(3, c_content);
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} catch(Exception e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} finally {
+			close(conn, ps);
+		}
+		
+	}
+	
+	public void getCommentDelete(int cid, int btype, int bid) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		String sql = " delete from t_comment ";
+				if(cid == 0) {
+					sql += " where btype = ? and bid = ? ";
+				} else {
+					sql += " where cid = ? ";
+				}
+		try {
+			conn = getConn();
+			ps = conn.prepareStatement(sql);
+			if(cid == 0) {
+				ps.setInt(1, btype);
+				ps.setInt(2, bid);
+			} else {
+				ps.setInt(1, cid);
+			}
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} catch(Exception e) {
+			e.printStackTrace();
+			//TODO: 예외처리
+		} finally {
+			close(conn, ps);
+		}
 	}
 }

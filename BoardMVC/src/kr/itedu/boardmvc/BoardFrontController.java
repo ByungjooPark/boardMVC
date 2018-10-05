@@ -15,6 +15,8 @@ import kr.itedu.boardmvc.action.BoardDetailAction;
 import kr.itedu.boardmvc.action.BoardListAction;
 import kr.itedu.boardmvc.action.BoardModifyAction;
 import kr.itedu.boardmvc.action.BoardRegModAction;
+import kr.itedu.boardmvc.action.CommentDeleteAction;
+import kr.itedu.boardmvc.action.CommentModifyAction;
 import kr.itedu.boardmvc.common.Utils;
 import kr.itedu.boardmvc.common.Var;
  
@@ -83,6 +85,20 @@ public class BoardFrontController extends HttpServlet {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
+	    	} else if(comd.equals("/commentModify.bo")) {
+	    		action = new CommentModifyAction();
+	    		try {
+	    			forward = action.execute(request, response);
+	    		} catch(Exception e) {
+	    			// TODO: handle exception
+	    		}	    		
+	    	} else if(comd.equals("/commentDelete.bo")) {
+	    		action = new CommentDeleteAction();
+	    		try {
+	    			forward = action.execute(request, response);
+	    		} catch(Exception e) {
+	    			// TODO: handle exception
+	    		}
 	    	}
 	    	
 	    	if(forward != null) {
